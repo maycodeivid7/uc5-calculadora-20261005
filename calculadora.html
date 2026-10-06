@@ -69,12 +69,53 @@
       </div>
     </main>
     <script>
-      function calcular() {
-       
+      function calcular(operacao) {
+        const num1 = parseFloat(document.getElementById("number1").value);
+        const num2 = parseFloat(document.getElementById("number2").value);
+        const resultElement = document.getElementById("result");
+        const errorElement = document.getElementById("error");
+
+        errorElement.textContent = "";
+
+        if (isNaN(num1) || isNaN(num2)) {
+          errorElement.textContent = "Por favor, insira números válidos.";
+          resultElement.textContent = "0";
+          return;
+        }
+
+        let resultado;
+        switch (operacao) {
+          case '+':
+            resultado = num1 + num2;
+            break;
+          case '-':
+            resultado = num1 - num2;
+            break;
+          case '*':
+            resultado = num1 * num2;
+            break;
+          case '/':
+            if (num2 === 0) {
+              errorElement.textContent = "Erro: Divisão por zero não é permitida.";
+              resultElement.textContent = "0";
+              return;
+            }
+            resultado = num1 / num2;
+            break;
+          default:
+            errorElement.textContent = "Operação inválida.";
+            resultElement.textContent = "0";
+            return;
+        }
+
+        resultElement.textContent = resultado.toFixed(2);
       }
 
       function limpar() {
-        
+        document.getElementById("number1").value = "";
+        document.getElementById("number2").value = "";
+        document.getElementById("result").textContent = "0";
+        document.getElementById("error").textContent = "";
       }
     </script>
   </body>
